@@ -17,5 +17,8 @@ public class PlayerMovement : MonoBehaviour
 		float x = Input.GetAxis("Horizontal");
 		Vector2 movement = new Vector2(x, 0);
 		rb.velocity = movement * speed;
+		// flip the player 
+		if (x < 0) transform.localScale = new Vector3(-1, 1, 1);
+		else if (x > 0) transform.localScale = new Vector3(1, 1, 1);
 	}
 }
