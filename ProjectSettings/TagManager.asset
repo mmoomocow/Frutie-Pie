@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 4221447431
+    locked: 0
+  - name: BackGround Bush
+    uniqueID: 2848671345
+    locked: 0
+  - name: ScoreBoard
+    uniqueID: 3224594543
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
