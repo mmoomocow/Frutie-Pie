@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	Rigidbody2D rb;
 	BoxCollider2D bc;
+	[SerializeField] public Animator an;
 	[SerializeField] public float speed = 10f;
 	[SerializeField] public float jumpForce = 10f;
 	[SerializeField] public float bounds = 7f;
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		bc = GetComponent<BoxCollider2D>();
+		an = GetComponent<Animator>();
 	}
 
 	void Update()
@@ -47,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
 		// flip the player to the left/right
 		if (x < 0) transform.localScale = new Vector3(-1, 1, 1);
 		else if (x > 0) transform.localScale = new Vector3(1, 1, 1);
+
+		// // Animate the player
+		// if (x != 0) an.SetBool("running", true);
+		// else an.SetBool("running", false);
 	}
 
 	void jump()
