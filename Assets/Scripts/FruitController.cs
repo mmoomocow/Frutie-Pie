@@ -13,6 +13,8 @@ public class FruitController : MonoBehaviour
 	[SerializeField] private float spawnVariation = 1f;
 	[SerializeField] private float lifeTime = 5f;
 	public Animator animator;
+	public Animator animator2;
+
 
 	public GameObject baseFruitPrefab;
 
@@ -37,6 +39,7 @@ public class FruitController : MonoBehaviour
 
 			// Play Monkey animation
 			animator.SetBool("Throw", true);
+			animator2.SetBool("Throw", true);
 
 			// Create a new fruit
 
@@ -63,11 +66,12 @@ public class FruitController : MonoBehaviour
 
 			// Randomly vary the spawn cooldown
 			float trueSpawnTime = Random.Range(spawnCooldown - spawnVariation, spawnCooldown + spawnVariation);
-			Debug.Log("Spawning fruit in " + trueSpawnTime + " seconds");
+			// Debug.Log("Spawning fruit in " + trueSpawnTime + " seconds");
 
 			// Wait for the spawn time to expire
 			yield return new WaitForSeconds(trueSpawnTime);
 			animator.SetBool("Throw", false);
+			animator2.SetBool("Throw", false);
 
 			// Destroy the fruit after it has been alive for the specified time
 			Destroy(fruitObj, lifeTime);
