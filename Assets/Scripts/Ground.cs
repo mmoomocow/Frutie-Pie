@@ -13,10 +13,11 @@ public class Ground : MonoBehaviour
 	// When the fruit hits the ground, the ground will destroy the fruit.
 	void OnTriggerEnter2D(Collider2D other)
 	{
+		// Only target fruit
 		if (other.gameObject.tag == "Fruit")
 		{
+			// Destroy the fruit
 			Destroy(other.gameObject);
-			Debug.Log("Fruit squashed!");
 		}
 	}
 }

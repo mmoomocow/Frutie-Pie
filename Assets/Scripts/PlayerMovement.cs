@@ -28,8 +28,10 @@ public class PlayerMovement : MonoBehaviour
 
 	void move()
 	{
+		// Get the horizontal input
 		float x = Input.GetAxisRaw("Horizontal");
 
+		// Move the player but don't allow it to go outside the bounds of the screen
 		if (x < 0 && transform.position.x > -bounds)
 		{
 			// transform.Translate(transform.right * -speed * Time.deltaTime);
@@ -42,14 +44,16 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 
-		// flip the player 
+		// flip the player to the left/right
 		if (x < 0) transform.localScale = new Vector3(-1, 1, 1);
 		else if (x > 0) transform.localScale = new Vector3(1, 1, 1);
 	}
 
 	void jump()
 	{
+		// Add a vertical force to the player and leave the horizontal force alone
 		rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+		// Player jumped, so they are no longer grounded
 		isGrounded = false;
 	}
 
@@ -57,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (obj.gameObject.CompareTag("Ground"))
 		{
+			// Player touched the ground, so they are now grounded
 			isGrounded = true;
 		}
 	}
