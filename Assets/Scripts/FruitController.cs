@@ -11,6 +11,7 @@ public class FruitController : MonoBehaviour
 	[SerializeField] private float spawnCooldown = 2f;
 	[SerializeField] private float lifeTime = 5f;
 	private float speed;
+	
 
 	void Start()
 	{
@@ -28,6 +29,8 @@ public class FruitController : MonoBehaviour
 			fruitRb.AddForce(fruitObj.transform.right * -speed, ForceMode2D.Impulse);
 			yield return new WaitForSeconds(spawnCooldown);
 			Destroy(fruitObj, lifeTime);
+		 	AudioManager.Instance.PlayShootingSound();
+
 		}
 	}
 }

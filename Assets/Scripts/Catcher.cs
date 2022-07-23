@@ -13,6 +13,9 @@ public class Catcher : MonoBehaviour
 		if (other.gameObject.tag == "Fruit")
 		{
 			Destroy(other.gameObject);
+			UIPanel.Instance.AddScore(1);
+			
+		 	
 		}
 	}
 }
