@@ -13,7 +13,6 @@ public class Catcher : MonoBehaviour
 		if (other.gameObject.tag == "Fruit")
 		{
 			Destroy(other.gameObject);
-			Debug.Log("Fruit caught!");
 		}
 	}
 }
