@@ -5,6 +5,8 @@ using UnityEngine;
 public class Ground : MonoBehaviour
 {
 	private BoxCollider2D bc;
+
+	private float timeLimit = 2f;
 	void Start()
 	{
 		bc = GetComponent<BoxCollider2D>();
@@ -17,7 +19,11 @@ public class Ground : MonoBehaviour
 		if (other.gameObject.tag == "Fruit")
 		{
 			// Destroy the fruit
-			Destroy(other.gameObject);
+			Destroy(other.gameObject, timeLimit);
+
+			other.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
 		}
 	}
+	
 }

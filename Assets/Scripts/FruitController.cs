@@ -1,34 +1,54 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FruitController : MonoBehaviour
 {
 	[SerializeField] public int scoreValue = 1;
 	[SerializeField] private Transform SpawnPoint;
-	[SerializeField] private GameObject[] fruits;
+	//[SerializeField] private GameObject[] fruits;
 	[SerializeField] private float maxSpeed;
 	[SerializeField] private float minSpeed;
 	[SerializeField] private float spawnCooldown = 2f;
 	[SerializeField] private float spawnVariation = 1f;
 	[SerializeField] private float lifeTime = 5f;
+	public Animator animator;
+
+	public GameObject baseFruitPrefab;
+
 	private float speed;
 
-	void Start()
+	private bool isThrowing = false;
+
+	void Update()
 	{
 		// Start fruit spawning
 		StartCoroutine(SpawnFruit());
 	}
-
 	private IEnumerator SpawnFruit()
 	{
-		yield return new WaitForSeconds(spawnCooldown);
-		while (enabled)
+		if (!isThrowing)
 		{
+			isThrowing = true;
 			// Randomly select a fruit from the array
-			int fruitIndex = Random.Range(0, fruits.Length);
+
+			List<GameObject> fruitList = new List<GameObject>();
+
+
+			// Play Monkey animation
+			animator.SetBool("Throw", true);
 
 			// Create a new fruit
-			GameObject fruitObj = Instantiate(fruits[fruitIndex], SpawnPoint.position, SpawnPoint.rotation);
+
+			yield return new WaitForSeconds(0.5f);
+			GameObject fruitObj = Instantiate(baseFruitPrefab, SpawnPoint.position, SpawnPoint.rotation);
+
+			foreach (Transform child in fruitObj.transform)
+			{
+				fruitList.Add(child.gameObject);
+			}
+			int fruitIndex = Random.Range(0, fruitList.Count);
+			fruitList[fruitIndex].SetActive(true);
 
 			// Get the fruit's rigidbody
 			Rigidbody2D fruitRb = fruitObj.GetComponent<Rigidbody2D>();
@@ -47,9 +67,11 @@ public class FruitController : MonoBehaviour
 
 			// Wait for the spawn time to expire
 			yield return new WaitForSeconds(trueSpawnTime);
+			animator.SetBool("Throw", false);
 
 			// Destroy the fruit after it has been alive for the specified time
 			Destroy(fruitObj, lifeTime);
+			isThrowing = false;
 		}
 	}
 }

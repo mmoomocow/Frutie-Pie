@@ -15,6 +15,7 @@ public class Catcher : MonoBehaviour
 		{
 			// Destroy the fruit
 			Destroy(other.gameObject);
+			
 		}
 	}
 }
