@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 	public static GameManager Instance;
 	public bool gameRunning = false;
 	public FruitController fruitController;
+	public Transform BirdSpawnPoint;
+	public GameObject BirdPrefab;
 
 	private void Awake()
 	{
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
 	{
 		gameRunning = true;
 		StartCoroutine(LoadUI());
+		StartCoroutine(BirdSpawner());
 	}
 
 	public void GameOver()
@@ -42,5 +45,18 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Audiomanager should be ready");
 	}
 
+	public void SpawnBird()
+	{
+		GameObject bird = Instantiate(BirdPrefab, BirdSpawnPoint.position, BirdSpawnPoint.rotation);
+		Destroy(bird, 5f);
+	}
 
+	public IEnumerator BirdSpawner()
+	{
+		while (gameRunning)
+		{
+			yield return new WaitForSeconds(Random.Range(5f, 20f));
+			SpawnBird();
+		}
+	}
 }
