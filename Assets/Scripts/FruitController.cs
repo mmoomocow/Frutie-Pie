@@ -21,14 +21,18 @@ public class FruitController : MonoBehaviour
 	private float speed;
 
 	private bool isThrowing = false;
-
 	void Update()
 	{
 		// Start fruit spawning
-		StartCoroutine(SpawnFruit());
+		if (GameManager.Instance.gameRunning)
+		{
+			StartCoroutine(SpawnFruit());
+			UIPanel.Instance.CountTime();
+		}
 	}
 	private IEnumerator SpawnFruit()
 	{
+
 		if (!isThrowing)
 		{
 			isThrowing = true;
@@ -45,6 +49,7 @@ public class FruitController : MonoBehaviour
 
 			yield return new WaitForSeconds(0.5f);
 			GameObject fruitObj = Instantiate(baseFruitPrefab, SpawnPoint.position, SpawnPoint.rotation);
+			AudioManager.Instance.PlayShootingSound();
 
 			foreach (Transform child in fruitObj.transform)
 			{
@@ -76,6 +81,7 @@ public class FruitController : MonoBehaviour
 			// Destroy the fruit after it has been alive for the specified time
 			Destroy(fruitObj, lifeTime);
 			isThrowing = false;
+
 		}
 	}
 }

@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] public float speed = 10f;
 	[SerializeField] public float jumpForce = 10f;
 	[SerializeField] public float bounds = 7f;
-	private bool isGrounded;
+	private bool isGrounded = true;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
@@ -61,11 +61,15 @@ public class PlayerMovement : MonoBehaviour
 		rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 		// Player jumped, so they are no longer grounded
 		isGrounded = false;
+		Debug.Log("Jump");
+		AudioManager.Instance.PlayJumpingSound();
 	}
 
 	void OnCollisionEnter2D(Collision2D obj)
 	{
+
 		if (obj.gameObject.CompareTag("Ground"))
+		//if (obj.gameObject.tag == "Ground")
 		{
 			// Player touched the ground, so they are now grounded
 			isGrounded = true;
