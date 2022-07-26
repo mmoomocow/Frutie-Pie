@@ -71,7 +71,6 @@ public class FruitController : MonoBehaviour
 
 			// Randomly vary the spawn cooldown
 			float trueSpawnTime = Random.Range(spawnCooldown - spawnVariation, spawnCooldown + spawnVariation);
-			// Debug.Log("Spawning fruit in " + trueSpawnTime + " seconds");
 
 			// Wait for the spawn time to expire
 			yield return new WaitForSeconds(trueSpawnTime);

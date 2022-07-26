@@ -37,7 +37,6 @@ public class Shit : MonoBehaviour
 			speed = speed / speedDevisor;
 			other.gameObject.GetComponent<PlayerMovement>().speed = speed;
 
-			Debug.Log($"Speed changed from {originalSpeed} to {speed}");
 
 			StartCoroutine(RestoreSpeed(other.gameObject, originalSpeed));
 
@@ -47,11 +46,8 @@ public class Shit : MonoBehaviour
 
 	IEnumerator RestoreSpeed(GameObject obj, float originalSpeed)
 	{
-		Debug.Log("Debuffing");
 		yield return new WaitForSeconds(debuffTime);
-		Debug.Log("Restoring");
 		obj.gameObject.GetComponent<PlayerMovement>().speed = 7f; // originalSpeed;
-		Debug.Log("Restored");
 		Destroy(gameObject);
 	}
 }

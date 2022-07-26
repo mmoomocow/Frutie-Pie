@@ -15,7 +15,6 @@ public class UIPanel : MonoBehaviour
 
 	private void Awake()
 	{
-		Debug.Log("UI Panel woke up");
 		Instance = this;
 		ScoreText.text = "0";
 		Timer.text = "0";
@@ -50,7 +49,23 @@ public class UIPanel : MonoBehaviour
 		}
 		if (count <= 0)
 		{
-			GameManager.Instance.GameOver();
+			GameManager.Instance.GameOver(ScoreText.text);
+
+		}
+	}
+
+	void Update()
+	{
+		// Flash the time remaining text
+		if (isCounting && count < 10)
+		{
+			Timer.color = Color.red;
+			WaitForSeconds wait = new WaitForSeconds(0.5f);
+		}
+		else
+		{
+			Timer.color = Color.white;
+			WaitForSeconds wait = new WaitForSeconds(0.5f);
 		}
 	}
 }

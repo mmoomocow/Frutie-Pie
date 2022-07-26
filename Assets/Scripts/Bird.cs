@@ -26,6 +26,7 @@ public class Bird : MonoBehaviour
 				// Spawn
 				yield return new WaitForSeconds(Random.Range(shitSpawnDelay - shitSpawnVariation, shitSpawnDelay + shitSpawnVariation));
 				GameObject shit = Instantiate(ShitPrefab, ShitLauncher.position, ShitLauncher.rotation);
+				AudioManager.Instance.PlayShitStep();
 			}
 			else
 			{

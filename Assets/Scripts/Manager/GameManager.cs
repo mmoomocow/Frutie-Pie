@@ -25,29 +25,29 @@ public class GameManager : MonoBehaviour
 		StartCoroutine(BirdSpawner());
 	}
 
-	public void GameOver()
+	public void GameOver(string scoreText)
 	{
 		gameRunning = false;
 		fruitController.StopAllCoroutines();
+
+		// Save score
+		PlayerPrefs.SetInt("Score", int.Parse(scoreText));
+		PlayerPrefs.Save();
 		SceneManager.LoadScene("GameOver");
-		Debug.Log("Game Over!!");
 	}
 
 	private IEnumerator LoadUI()
 	{
 		yield return SceneManager.LoadSceneAsync("UIScene", LoadSceneMode.Additive);
-		Debug.Log("UI Scene Loaded");
 
 		AudioManager.Instance.MusicVolume = 0.5f;
 		AudioManager.Instance.PlayBackground();
-
-
-		Debug.Log("Audiomanager should be ready");
 	}
 
 	public void SpawnBird()
 	{
 		GameObject bird = Instantiate(BirdPrefab, BirdSpawnPoint.position, BirdSpawnPoint.rotation);
+		AudioManager.Instance.PlayBird();
 		Destroy(bird, 5f);
 	}
 

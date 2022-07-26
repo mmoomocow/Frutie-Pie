@@ -61,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
 		rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 		// Player jumped, so they are no longer grounded
 		isGrounded = false;
-		Debug.Log("Jump");
 		AudioManager.Instance.PlayJumpingSound();
 	}
 
